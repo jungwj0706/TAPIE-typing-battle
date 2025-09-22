@@ -1,0 +1,19 @@
+@import url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@latest/css/wanted-sans.css');
+
+:root {
+    --bg: #050505;
+    --text: #FAFAFA;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Wanted Sans', sans-serif;
+}

@@ -35,14 +35,6 @@
     font-size: var(--font-size-lg);
 }
 
-/* States */
-.input:focus {
-    outline: none;
-    border-color: var(--accent-green);
-    box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
-    background: var(--bg-modal);
-}
-
 .input:hover:not(.input--disabled):not(:focus) {
     border-color: var(--text-muted);
     background: var(--bg-modal);

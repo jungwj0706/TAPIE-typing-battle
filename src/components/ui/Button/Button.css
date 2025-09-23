@@ -38,23 +38,6 @@
     border: 1px solid var(--border-color);
 }
 
-.btn--primary:hover:not(.btn--disabled) {
-    background: var(--bg-modal);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-card);
-}
-
-.btn--selected {
-    background: var(--accent-green);
-    color: var(--bg-primary);
-    border: 1px solid var(--accent-green);
-}
-
-.btn--selected:hover:not(.btn--disabled) {
-    background: var(--accent-green-dark);
-    border-color: var(--accent-green-dark);
-}
-
 .btn--ghost {
     background: transparent;
     color: var(--text-secondary);
@@ -64,12 +47,6 @@
 .btn--ghost:hover:not(.btn--disabled) {
     background: var(--bg-card);
     color: var(--text-primary);
-}
-
-.btn--danger {
-    background: var(--accent-red);
-    color: var(--text-primary);
-    border: 1px solid var(--accent-red);
 }
 
 .btn--danger:hover:not(.btn--disabled) {

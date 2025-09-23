@@ -67,13 +67,6 @@ body {
     text-align: center;
 }
 
-/* Focus styles */
-button:focus,
-input:focus {
-    outline: 2px solid var(--accent-green);
-    outline-offset: 2px;
-}
-
 /* Scrollbar styling */
 ::-webkit-scrollbar {
     width: 8px;

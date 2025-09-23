@@ -1,0 +1,54 @@
+:root {
+    /* Colors */
+    --bg-primary: #050505;
+    --bg-secondary: #1a1a1a;
+    --bg-modal: rgba(64, 64, 64, 0.9);
+    --bg-card: rgba(64, 64, 64, 0.5);
+
+    --text-primary: #FAFAFA;
+    --text-secondary: #A0A0A0;
+    --text-muted: #666666;
+
+    --accent-green: #00FF88;
+    --accent-green-dark: #00CC6A;
+    --accent-red: #FF4444;
+    --accent-yellow: #FFD700;
+
+    /* Border & Effects */
+    --border-radius: 12px;
+    --border-radius-small: 8px;
+    --border-color: rgba(255, 255, 255, 0.1);
+
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+
+    /* Typography */
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 24px;
+    --font-size-2xl: 32px;
+    --font-size-3xl: 48px;
+
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+
+    /* Layout */
+    --max-width-content: 1200px;
+    --max-width-modal: 600px;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}

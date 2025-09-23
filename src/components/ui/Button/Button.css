@@ -1,0 +1,96 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Sizes */
+.btn--small {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    border-radius: var(--border-radius-small);
+}
+
+.btn--medium {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-md);
+}
+
+.btn--large {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    font-size: var(--font-size-lg);
+    border-radius: var(--border-radius);
+}
+
+/* Variants */
+.btn--primary {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn--primary:hover:not(.btn--disabled) {
+    background: var(--bg-modal);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+}
+
+.btn--selected {
+    background: var(--accent-green);
+    color: var(--bg-primary);
+    border: 1px solid var(--accent-green);
+}
+
+.btn--selected:hover:not(.btn--disabled) {
+    background: var(--accent-green-dark);
+    border-color: var(--accent-green-dark);
+}
+
+.btn--ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.btn--ghost:hover:not(.btn--disabled) {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.btn--danger {
+    background: var(--accent-red);
+    color: var(--text-primary);
+    border: 1px solid var(--accent-red);
+}
+
+.btn--danger:hover:not(.btn--disabled) {
+    background: #cc3333;
+    border-color: #cc3333;
+}
+
+/* Disabled state */
+.btn--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Focus state */
+.btn:focus {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 2px;
+}
+
+/* Active state */
+.btn:active:not(.btn--disabled) {
+    transform: translateY(1px);
+}

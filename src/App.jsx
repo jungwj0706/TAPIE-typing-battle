@@ -1,35 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import MainPage from './pages/MainPage/MainPage.jsx';
+import NameInputPage from './pages/NameInputPage/NameInputPage.jsx';
+import GameSelectPage from './pages/ModeSelectPage/ModeSelectPage.jsx';
+// import WordGamePage from './pages/GamePage/WordGamePage.jsx';
+// import SentenceGamePage from './pages/GamePage/SentenceGamePage.jsx';
+// import RankingPage from './pages/RankingPage/RankingPage.jsx';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/name" element={<NameInputPage />} />
+        <Route path="/select" element={<GameSelectPage />} />
+        {/* <Route path="/game/word" element={<WordGamePage />} /> */}
+        {/* <Route path="/game/sentence" element={<SentenceGamePage />} /> */}
+        {/* <Route path="/ranking" element={<RankingPage />} /> */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </div>
+  );
 }
-
-export default App

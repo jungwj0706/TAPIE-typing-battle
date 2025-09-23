@@ -1,0 +1,68 @@
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input {
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: var(--font-size-md);
+    transition: all var(--transition-fast);
+}
+
+.input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Sizes */
+.input--small {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    border-radius: var(--border-radius-small);
+}
+
+.input--medium {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-md);
+}
+
+.input--large {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    font-size: var(--font-size-lg);
+}
+
+.input:hover:not(.input--disabled):not(:focus) {
+    border-color: var(--text-muted);
+    background: var(--bg-modal);
+}
+
+.input--error {
+    border-color: var(--accent-red);
+}
+
+.input--error:focus {
+    border-color: var(--accent-red);
+    box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.1);
+}
+
+.input--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--bg-secondary);
+}
+
+.input--disabled::placeholder {
+    color: var(--text-muted);
+}
+
+/* Error message */
+.input-error-message {
+    display: block;
+    margin-top: var(--spacing-xs);
+    color: var(--accent-red);
+    font-size: var(--font-size-sm);
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './MainPage.modal.css';
+import styles from './MainPage.module.css';
 import mainBg from '../../assets/main-bg.svg';
 const MainPage = () => {
   const navigate = useNavigate();
@@ -12,20 +12,20 @@ const MainPage = () => {
   };
     return (
         <>
-            <div className="main-page">
-                <img src={mainBg} alt="Background" className="main-bg" />
-                <div className="main-content flex-center flex-column">
-                    <h1 className="main-title">Typing battle</h1>
-                    <div className="main-buttons">
+            <div className={styles['main-page']}>
+                <img src={mainBg} alt="Background" className={styles['main-bg']} />
+                <div className={`${styles['main-content']} flex-center flex-column`}>
+                    <h1 className={styles['main-title']}>Typing battle</h1>
+                    <div className={styles['main-buttons']}>
                         <button
                         onClick={handlePlayClick}
-                        className="main-button primary"
+                        className={`${styles['main-button']} ${styles.primary}`}
                         >
                         PLAY
                         </button>
                         <button
                         onClick={handleRankClick}
-                        className="main-button secondary"
+                        className={`${styles['main-button']} ${styles.secondary}`}
                         >
                         RANK
                         </button>

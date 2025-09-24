@@ -3,7 +3,6 @@ import styles from "./WordGamePage.module.css";
 import mainBg from "../../assets/common-bg.svg";
 import { useNavigate, useLocation } from "react-router-dom";
 import sampleWords from "../../data/sampleWords.json";
-// import { createClient } from "@supabase/supabase-js";
 import { supabase } from "../../services/supabaseClient";
 import useTimer from "../../hooks/useTimer";
 

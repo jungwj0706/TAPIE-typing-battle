@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./WordGamePage.module.css";
 import mainBg from "../../assets/common-bg.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import sampleWords from "../../data/sampleWords.json";
+// import { createClient } from "@supabase/supabase-js";
+import { supabase } from "../../services/supabaseClient";
+import useTimer from "../../hooks/useTimer";
 
 // 모든 단어를 섞는 함수
 const shuffleArray = (array) => {
@@ -16,20 +19,44 @@ const shuffleArray = (array) => {
 
 const WordGamePage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const username = location.state?.playerName || "익명";
   const [words, setWords] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [isCorrect, setIsCorrect] = useState(true);
+  const [isGameEnded, setIsGameEnded] = useState(false);
   const inputRef = useRef(null);
+
+  // 타자수와 시작 시간 상태
+  const [correctChars, setCorrectChars] = useState(0);
+  const [startTime, setStartTime] = useState(null);
+
+  // useTimer 훅 사용해 타이머 구현 (duration은 임의)
+  const { start, stop } = useTimer({ duration: 9999 });
 
   useEffect(() => {
     setWords(shuffleArray(sampleWords));
     inputRef.current.focus();
+    setStartTime(Date.now());
+    start();
   }, []);
 
-  useEffect(() => {
-    setCurrentIndex(0);
-  }, [words]);
+  const saveRank = async (wpm) => {
+    const { data, error } = await supabase.from("ranking").insert([
+      {
+        username: username,
+        game_type: "단어",
+        wpm: wpm,
+      },
+    ]);
+
+    if (error) {
+      console.error("Error saving rank:", error);
+    } else {
+      console.log("Rank saved successfully:", data);
+    }
+  };
 
   const handleInputChange = (event) => {
     const value = event.target.value;
@@ -42,18 +69,60 @@ const WordGamePage = () => {
       setIsCorrect(isMatch);
 
       if (value === currentWord) {
+        setCorrectChars((prev) => prev + currentWord.length);
+
+        if (currentIndex === words.length - 1) {
+          stop();
+          setIsGameEnded(true);
+          const endTime = Date.now();
+          const totalTimeInMinutes = (endTime - startTime) / 60000;
+          const calculatedWpm =
+            totalTimeInMinutes > 0 ? correctChars / totalTimeInMinutes : 0;
+          saveRank(calculatedWpm);
+        }
+
         setTimeout(() => {
           setInputValue("");
           setIsCorrect(true);
           if (currentIndex < words.length - 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
-          } else {
-            // 게임 끝나고 나서 로직 -> 아직 미정
           }
         }, 200);
       }
     }
   };
+
+  const handleResetGame = () => {
+    setIsGameEnded(false);
+    setWords(shuffleArray(sampleWords));
+    setCurrentIndex(0);
+    setInputValue("");
+    setIsCorrect(true);
+    setCorrectChars(0);
+    inputRef.current.focus();
+    setStartTime(Date.now());
+    start();
+  };
+
+  if (isGameEnded) {
+    return (
+      <div className={styles.container} style={bgStyle}>
+        <div className={styles.gameCard}>
+          <div className={styles.gameContent}>
+            <h1 className={styles.endMessage}>게임 종료!</h1>
+            <p className={styles.wpmDisplay}>
+              당신의 타수는{" "}
+              {Math.round(correctChars / ((Date.now() - startTime) / 60000))}{" "}
+              WPM 입니다.
+            </p>
+            <button onClick={handleResetGame} className={styles.endButton}>
+              다시 시작하기
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const prevWords = words.slice(Math.max(0, currentIndex - 3), currentIndex);
   const nextWords = words.slice(currentIndex + 1, currentIndex + 3);

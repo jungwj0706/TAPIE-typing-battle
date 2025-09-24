@@ -13,7 +13,7 @@ const SentenceGamePage = () => {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    // 문장을 JSON 파일 순서대로 초기화합
+    // 문장을 JSON 파일 순서대로 초기화함
     setSentences(sampleSentences);
     inputRef.current.focus();
   }, []);
@@ -50,8 +50,12 @@ const SentenceGamePage = () => {
   const targetSentence = sentences[currentIndex];
 
   const inputClass = `${styles.input} ${
-    inputValue && !isCorrect ? styles.inputWrong : ""
-  } ${inputValue && isCorrect && inputValue === targetSentence ? styles.inputCorrect : ""}`;
+    inputValue && !isCorrect
+      ? styles.inputWrong
+      : inputValue === targetSentence
+        ? styles.inputCorrect
+        : styles.inputNeutral
+  }`;
 
   const bgStyle = {
     backgroundImage: `url(${mainBg})`,

@@ -42,16 +42,14 @@
 .gameCard {
   background: rgba(250, 250, 250, 0.2);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 40px;
+  border-radius: 50px;
+  padding: 70px 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   width: 90%;
   max-width: 500px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   animation: fadeIn 0.5s ease-out;
   z-index: 5;
 }
@@ -85,12 +83,13 @@
 
 .input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #fafafa;
+  border-radius: 0;
   color: #fff;
   font-size: 2rem;
-  padding: 15px 20px;
+  padding: 15px 20px 5px;
   text-align: center;
   outline: none;
   transition:
@@ -99,7 +98,14 @@
 }
 
 .input:focus {
-  border-color: #00d68f;
+  outline: none;
+  border-color: #fafafa;
+  box-shadow: none;
+}
+
+.inputCorrect {
+  color: #08e95d;
+  border-color: #08e95d !important;
 }
 
 .inputWrong {
@@ -124,11 +130,6 @@
   100% {
     transform: translateX(0);
   }
-}
-
-.inputCorrect {
-  color: #00d68f;
-  border-color: #00d68f;
 }
 
 .wordDisplayContainer {

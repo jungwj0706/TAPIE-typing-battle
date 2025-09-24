@@ -61,7 +61,7 @@ const WordGamePage = () => {
 
   const inputClass = `${styles.input} ${
     inputValue && !isCorrect ? styles.inputWrong : ""
-  } ${inputValue && isCorrect && inputValue === targetWord ? styles.inputCorrect : ""}`;
+  } ${inputValue === targetWord && isCorrect ? styles.inputCorrect : ""}`;
 
   const bgStyle = {
     backgroundImage: `url(${mainBg})`,

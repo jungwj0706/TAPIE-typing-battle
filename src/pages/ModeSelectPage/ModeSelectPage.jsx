@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './ModeSelectPage.module.css';
 import mainBg from '../../assets/common-bg.svg';
 import { useNavigate } from 'react-router-dom';
+import { CircleAlert } from 'lucide-react';
 
 const ModeSelectPage = () => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const ModeSelectPage = () => {
                       상대방보다 빠르고 정확하게 적어봐요!
           </p>
           <div className={styles.cardFooter}>
+            <CircleAlert size={16} />
             <span className={styles.warningText}>
               모든 동아리명은 알파벳이며, 특수문자가 포함된 곳도 있습니다
             </span>
@@ -38,6 +40,7 @@ const ModeSelectPage = () => {
                       상대방보다 빠르고 정확하게 적어봐요!
           </p>
           <div className={styles.cardFooter}>
+            <CircleAlert size={16} />
             <span className={styles.warningText}>
               선린인이라면 교가정도는 다 외웠겠죠??
             </span>

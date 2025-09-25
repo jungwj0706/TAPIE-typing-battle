@@ -1,0 +1,139 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  font-family: "Inter", sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  background: rgba(250, 250, 250, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.backButton {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: #c0c0c0;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s ease-in-out;
+  z-index: 10;
+}
+
+.backButton:hover {
+  color: #fff;
+}
+
+.backButtonIcon {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.gameCard {
+  background: none; /* 배경 투명하게 설정 */
+  backdrop-filter: none; /* 블러 효과 제거 */
+  border-radius: 50px;
+  padding: 70px 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 왼쪽 정렬 */
+  text-align: left; /* 텍스트 왼쪽 정렬 */
+  width: 90%;
+  max-width: 800px;
+  animation: fadeIn 0.5s ease-out;
+  z-index: 5;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 40px;
+  letter-spacing: 5px;
+  position: relative;
+  /* 가운데 정렬 제거 */
+  text-align: left;
+}
+
+.modeTabs {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.tab {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 20px;
+  padding: 10px 25px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.tab.activeTab {
+  background: white;
+  color: black;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.rankingTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px; /* 행 간격 */
+  font-size: 1.2rem;
+  text-align: left; /* 테이블 내용 왼쪽 정렬 */
+}
+
+.rankingTable th {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rankingTable td {
+  padding: 10px 0;
+  font-weight: 400;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rankingTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.loadingMessage,
+.noRanking {
+  text-align: center;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 20px 0;
+}

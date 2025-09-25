@@ -1,86 +1,95 @@
-@import url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@latest/css/wanted-sans.css');
-@import './variables.css';
+@import url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@latest/css/wanted-sans.css");
+@import "./variables.css";
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html,
 body,
 #root {
-    height: 100%;
-    overflow-x: hidden;
+  height: 100%;
+  overflow-x: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 body {
-    margin: 0;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: 'Wanted Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: var(--font-size-md);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family:
+    "Wanted Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .app {
-    min-height: 100vh;
-    position: relative;
+  min-height: 100vh;
+  position: relative;
 }
 
 /* Background images */
 .bg-main {
-    background-image: url('../assets/main-bg.svg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  background-image: url("../assets/main-bg.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .bg-common {
-    background-image: url('../assets/common-bg.svg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  background-image: url("../assets/common-bg.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Common utility classes */
 .container {
-    max-width: var(--max-width-content);
-    margin: 0 auto;
-    padding: 0 var(--spacing-lg);
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
 }
 
 .flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .flex-column {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
+  background: var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--text-muted);
-    border-radius: var(--border-radius-small);
+  background: var(--text-muted);
+  border-radius: var(--border-radius-small);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--text-secondary);
+  background: var(--text-secondary);
 }

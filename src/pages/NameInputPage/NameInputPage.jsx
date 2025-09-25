@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../services/supabaseClient";
 import styles from "./NameInputPage.module.css";
 import commonBg from "../../assets/common-bg.svg";
 
@@ -14,24 +13,13 @@ const NameInputPage = () => {
     setErrorMessage("");
   };
 
-  const handleStartClick = async () => {
+  const handleStartClick = () => {
     if (playerName.trim().length === 0) {
       setErrorMessage("이름을 입력해주세요.");
       return;
     }
-
-    try {
-      const { data: _data, error } = await supabase
-        .from("ranking")
-        .insert([{ username: playerName }]);
-
-      if (error) throw error;
-
-      navigate("/game-play", { state: { playerName } });
-    } catch (error) {
-      console.error(error);
-      setErrorMessage("데이터 저장 중 오류가 발생했습니다.");
-    }
+    // Supabase에 데이터를 저장하지 않고 바로 모드 선택 페이지로 이동함
+    navigate("/select", { state: { playerName } });
   };
 
   return (

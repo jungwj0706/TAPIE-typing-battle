@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./RankingPage.module.css";
-import mainBg from "../../assets/common-bg.svg";
 import { useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
+import commonBg from "../../assets/common-bg.svg";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -40,17 +40,16 @@ const RankingPage = () => {
     setGameMode(mode);
   };
 
-  const bgStyle = {
-    backgroundImage: `url(${mainBg})`,
-  };
-
   return (
-    <div className={styles.container} style={bgStyle}>
+    <div
+      className={styles.container}
+      style={{ backgroundImage: `url(${commonBg})` }}
+    >
       <button onClick={() => navigate("/")} className={styles.backButton}>
         <span className={styles.backButtonIcon}>&lt;</span>메뉴로 돌아가기
       </button>
       <div className={styles.gameCard}>
-        <h1 className={styles.title}>랭킹</h1>
+        <h1 className={styles.title}>RANK</h1>
         <div className={styles.modeTabs}>
           <button
             className={`${styles.tab} ${gameMode === "단어" ? styles.activeTab : ""}`}
@@ -66,7 +65,7 @@ const RankingPage = () => {
           </button>
         </div>
         {isLoading ? (
-          <p>랭킹을 불러오는 중입니다...</p>
+          <p className={styles.loadingMessage}>랭킹을 불러오는 중입니다...</p>
         ) : (
           <table className={styles.rankingTable}>
             <thead>
@@ -74,6 +73,7 @@ const RankingPage = () => {
                 <th>순위</th>
                 <th>이름</th>
                 <th>타수(WPM)</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -83,11 +83,14 @@ const RankingPage = () => {
                     <td>{index + 1}</td>
                     <td>{rank.username}</td>
                     <td>{Math.round(rank.wpm)}</td>
+                    <td>{rank.game_type === "단어" ? "낱말" : "장문"}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="3">아직 랭킹 기록이 없습니다.</td>
+                  <td colSpan="4" className={styles.noRanking}>
+                    아직 랭킹 기록이 없습니다.
+                  </td>
                 </tr>
               )}
             </tbody>

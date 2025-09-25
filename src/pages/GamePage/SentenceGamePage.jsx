@@ -32,15 +32,15 @@ const SentenceGamePage = () => {
     inputRef.current.focus();
     setStartTime(Date.now());
     start();
-  }, [start]); // 'start'를 의존성 배열에 추가
+  }, []);
 
   const saveRank = async (wpm, time) => {
     const { data, error } = await supabase.from("ranking").insert([
       {
-        username: username,
+        username: username || "익명",
         game_type: "장문",
-        wpm: wpm,
-        total_time: time,
+        wpm: wpm || 0,
+        total_time: time || 0,
       },
     ]);
 
@@ -51,7 +51,7 @@ const SentenceGamePage = () => {
     }
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChange = async (event) => {
     const value = event.target.value;
     setInputValue(value);
 
@@ -72,9 +72,9 @@ const SentenceGamePage = () => {
           const calculatedWpm =
             totalTimeInMinutes > 0 ? correctChars / totalTimeInMinutes : 0;
 
-          saveRank(calculatedWpm, timeInSeconds);
+          await saveRank(calculatedWpm, timeInSeconds);
 
-          setIsGameEnded(true);
+          navigate("/ranking");
         }
 
         setTimeout(() => {

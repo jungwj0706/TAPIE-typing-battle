@@ -42,7 +42,7 @@ const WordGamePage = () => {
     inputRef.current.focus();
     setStartTime(Date.now());
     start();
-  }, []); // 빈 의존성 배열로 변경 - 컴포넌트 마운트 시에만 실행
+  }, []);
 
   const saveRank = async (wpm, time) => {
     console.log("저장할 데이터:", { username, wpm, time }); // 디버깅용
@@ -63,7 +63,7 @@ const WordGamePage = () => {
     }
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChange = async (event) => {
     const value = event.target.value;
     setInputValue(value);
 
@@ -74,33 +74,19 @@ const WordGamePage = () => {
       setIsCorrect(isMatch);
 
       if (value === currentWord) {
-        // 현재 단어의 길이를 correctChars에 추가
-        const newCorrectChars = correctChars + currentWord.length;
-        setCorrectChars(newCorrectChars);
+        setCorrectChars((prev) => prev + currentWord.length);
 
         if (currentIndex === words.length - 1) {
           stop();
           const endTime = Date.now();
           const timeInSeconds = Math.round((endTime - startTime) / 1000);
           const totalTimeInMinutes = timeInSeconds / 60;
-
-          // 수정된 WPM 계산 (총 타자 수 사용)
           const calculatedWpm =
-            totalTimeInMinutes > 0
-              ? Math.round(newCorrectChars / totalTimeInMinutes)
-              : 0;
+            totalTimeInMinutes > 0 ? correctChars / totalTimeInMinutes : 0;
 
-          // 디버깅을 위한 콘솔 로그 추가
-          console.log("게임 종료 데이터:", {
-            username: username,
-            game_type: "단어",
-            wpm: calculatedWpm,
-            total_time: timeInSeconds,
-            total_chars: newCorrectChars,
-          });
+          await saveRank(calculatedWpm, timeInSeconds);
 
-          saveRank(calculatedWpm, timeInSeconds);
-          setIsGameEnded(true);
+          navigate("/ranking");
         }
 
         setTimeout(() => {

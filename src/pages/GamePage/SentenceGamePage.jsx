@@ -9,7 +9,10 @@ import useTimer from "../../hooks/useTimer";
 const SentenceGamePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const username = location.state?.playerName || "익명";
+  const username =
+    location.state?.playerName ||
+    localStorage.getItem("currentPlayerName") ||
+    "익명";
   const [sentences, setSentences] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [inputValue, setInputValue] = useState("");
@@ -29,14 +32,15 @@ const SentenceGamePage = () => {
     inputRef.current.focus();
     setStartTime(Date.now());
     start();
-  }, []);
+  }, [start]); // 'start'를 의존성 배열에 추가
 
-  const saveRank = async (wpm) => {
+  const saveRank = async (wpm, time) => {
     const { data, error } = await supabase.from("ranking").insert([
       {
         username: username,
         game_type: "장문",
         wpm: wpm,
+        total_time: time,
       },
     ]);
 
@@ -62,12 +66,15 @@ const SentenceGamePage = () => {
 
         if (currentIndex === sentences.length - 1) {
           stop();
-          setIsGameEnded(true);
           const endTime = Date.now();
-          const totalTimeInMinutes = (endTime - startTime) / 60000;
+          const timeInSeconds = Math.round((endTime - startTime) / 1000);
+          const totalTimeInMinutes = timeInSeconds / 60;
           const calculatedWpm =
             totalTimeInMinutes > 0 ? correctChars / totalTimeInMinutes : 0;
-          saveRank(calculatedWpm);
+
+          saveRank(calculatedWpm, timeInSeconds);
+
+          setIsGameEnded(true);
         }
 
         setTimeout(() => {

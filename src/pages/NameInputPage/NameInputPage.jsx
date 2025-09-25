@@ -18,6 +18,7 @@ const NameInputPage = () => {
       setErrorMessage("이름을 입력해주세요.");
       return;
     }
+    localStorage.setItem("currentPlayerName", playerName);
     // Supabase에 데이터를 저장하지 않고 바로 모드 선택 페이지로 이동함
     navigate("/select", { state: { playerName } });
   };

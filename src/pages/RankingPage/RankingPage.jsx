@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./RankingPage.module.css";
+import mainBg from "../../assets/common-bg.svg";
 import { useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
-import commonBg from "../../assets/common-bg.svg";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -25,13 +25,14 @@ const RankingPage = () => {
       .select("*")
       .eq("game_type", mode)
       .order("wpm", { ascending: false })
-      .limit(10); // 상위 10개만 가져옴
+      .limit(10);
 
     if (error) {
       console.error("Error fetching rankings:", error);
       setRankings([]);
     } else {
-      setRankings(data);
+      console.log("받아온 랭킹 데이터:", data); // 디버깅용 로그 추가
+      setRankings(data || []);
     }
     setIsLoading(false);
   };
@@ -40,11 +41,12 @@ const RankingPage = () => {
     setGameMode(mode);
   };
 
+  const bgStyle = {
+    backgroundImage: `url(${mainBg})`,
+  };
+
   return (
-    <div
-      className={styles.container}
-      style={{ backgroundImage: `url(${commonBg})` }}
-    >
+    <div className={styles.container} style={bgStyle}>
       <button onClick={() => navigate("/")} className={styles.backButton}>
         <span className={styles.backButtonIcon}>&lt;</span>메뉴로 돌아가기
       </button>
@@ -65,7 +67,7 @@ const RankingPage = () => {
           </button>
         </div>
         {isLoading ? (
-          <p className={styles.loadingMessage}>랭킹을 불러오는 중입니다...</p>
+          <p>랭킹을 불러오는 중입니다...</p>
         ) : (
           <table className={styles.rankingTable}>
             <thead>
@@ -73,7 +75,7 @@ const RankingPage = () => {
                 <th>순위</th>
                 <th>이름</th>
                 <th>타수(WPM)</th>
-                <th></th>
+                <th>걸린 시간</th>
               </tr>
             </thead>
             <tbody>
@@ -81,16 +83,17 @@ const RankingPage = () => {
                 rankings.map((rank, index) => (
                   <tr key={rank.id}>
                     <td>{index + 1}</td>
-                    <td>{rank.username}</td>
-                    <td>{Math.round(rank.wpm)}</td>
-                    <td>{rank.game_type === "단어" ? "낱말" : "장문"}</td>
+                    <td>{rank.username || "익명"}</td> {/* fallback 추가 */}
+                    <td>{Math.round(rank.wpm || 0)}</td> {/* fallback 추가 */}
+                    <td>
+                      {rank.total_time ? `${rank.total_time}초` : "N/A"}
+                    </td>{" "}
+                    {/* null 체크 추가 */}
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className={styles.noRanking}>
-                    아직 랭킹 기록이 없습니다.
-                  </td>
+                  <td colSpan="4">아직 랭킹 기록이 없습니다.</td>
                 </tr>
               )}
             </tbody>

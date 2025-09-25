@@ -19,7 +19,10 @@ const shuffleArray = (array) => {
 const WordGamePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const username = location.state?.playerName || "익명";
+  const username =
+    location.state?.playerName ||
+    localStorage.getItem("currentPlayerName") ||
+    "익명";
   const [words, setWords] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [inputValue, setInputValue] = useState("");
@@ -39,14 +42,17 @@ const WordGamePage = () => {
     inputRef.current.focus();
     setStartTime(Date.now());
     start();
-  }, []);
+  }, []); // 빈 의존성 배열로 변경 - 컴포넌트 마운트 시에만 실행
 
-  const saveRank = async (wpm) => {
+  const saveRank = async (wpm, time) => {
+    console.log("저장할 데이터:", { username, wpm, time }); // 디버깅용
+
     const { data, error } = await supabase.from("ranking").insert([
       {
-        username: username,
+        username: username || "익명",
         game_type: "단어",
-        wpm: wpm,
+        wpm: wpm || 0,
+        total_time: time || 0,
       },
     ]);
 
@@ -68,16 +74,33 @@ const WordGamePage = () => {
       setIsCorrect(isMatch);
 
       if (value === currentWord) {
-        setCorrectChars((prev) => prev + currentWord.length);
+        // 현재 단어의 길이를 correctChars에 추가
+        const newCorrectChars = correctChars + currentWord.length;
+        setCorrectChars(newCorrectChars);
 
         if (currentIndex === words.length - 1) {
           stop();
-          setIsGameEnded(true);
           const endTime = Date.now();
-          const totalTimeInMinutes = (endTime - startTime) / 60000;
+          const timeInSeconds = Math.round((endTime - startTime) / 1000);
+          const totalTimeInMinutes = timeInSeconds / 60;
+
+          // 수정된 WPM 계산 (총 타자 수 사용)
           const calculatedWpm =
-            totalTimeInMinutes > 0 ? correctChars / totalTimeInMinutes : 0;
-          saveRank(calculatedWpm);
+            totalTimeInMinutes > 0
+              ? Math.round(newCorrectChars / totalTimeInMinutes)
+              : 0;
+
+          // 디버깅을 위한 콘솔 로그 추가
+          console.log("게임 종료 데이터:", {
+            username: username,
+            game_type: "단어",
+            wpm: calculatedWpm,
+            total_time: timeInSeconds,
+            total_chars: newCorrectChars,
+          });
+
+          saveRank(calculatedWpm, timeInSeconds);
+          setIsGameEnded(true);
         }
 
         setTimeout(() => {
@@ -103,16 +126,22 @@ const WordGamePage = () => {
     start();
   };
 
+  const bgStyle = {
+    backgroundImage: `url(${mainBg})`,
+  };
+
   if (isGameEnded) {
+    const finalWpm = Math.round(
+      correctChars / ((Date.now() - startTime) / 60000),
+    );
+
     return (
       <div className={styles.container} style={bgStyle}>
         <div className={styles.gameCard}>
           <div className={styles.gameContent}>
             <h1 className={styles.endMessage}>게임 종료!</h1>
             <p className={styles.wpmDisplay}>
-              당신의 타수는{" "}
-              {Math.round(correctChars / ((Date.now() - startTime) / 60000))}{" "}
-              WPM 입니다.
+              당신의 타수는 {finalWpm} WPM 입니다.
             </p>
             <button onClick={handleResetGame} className={styles.endButton}>
               다시 시작하기
@@ -130,10 +159,6 @@ const WordGamePage = () => {
   const inputClass = `${styles.input} ${
     inputValue && !isCorrect ? styles.inputWrong : ""
   } ${inputValue === targetWord && isCorrect ? styles.inputCorrect : ""}`;
-
-  const bgStyle = {
-    backgroundImage: `url(${mainBg})`,
-  };
 
   return (
     <div className={styles.container} style={bgStyle}>

@@ -7,6 +7,10 @@
 > 해당 저장소는 2025년 09월 26일 15:00(동아리마당 마감 이후)에 공개 저장소로 전환되었습니다. <br />
 > 상품 증정 대상이 되는 타자 대결 랭킹은 2025년 09월 26일 12:00에 최종 집계되었으며, 그 이후의 기록은 상품 증정에 반영되지 않습니다.
 
+> **업데이트 (2025.10.21)**  
+> Supabase의 익명 키 만료로 인해 **랭킹 저장 및 조회 기능이 현재 비활성화**되었습니다.  
+> 게임 플레이는 정상적으로 가능합니다.
+
 ---
 
 ## Tech Stack
@@ -65,7 +69,7 @@ TAPIE-typing-battle/
   ├───vite.config.js
   ├───public/
   │   ├───favicon.png
-  │   └───vite.svg
+  │   └───vite.svg 
   └───src/
       ├───App.css
       ├───App.jsx
@@ -76,7 +80,6 @@ TAPIE-typing-battle/
       │   ├───common-bg.svg
       │   └───main-bg.svg
       ├───components/
-      │   ├───GameHUD.jsx
       │   └───ui/
       │       ├───Button/
       │       │   ├───Button.css
@@ -87,18 +90,15 @@ TAPIE-typing-battle/
       │       └───Modal/
       │           ├───Modal.css
       │           └───Modal.jsx
-      ├───constants/
-      │   └───gameConstants.js
       ├───context/
-      │   ├───UserContext.jsx
-      │   └───useUser.js
+      │   ├───UserContext.jsx       # Manages user information globally (유저 정보를 전역적으로 관리)
+      │   └───useUser.js            # Custom hook for accessing UserContext (UserContext를 쉽게 사용하기 위한 커스텀 훅)
       ├───data/
-      │   ├───sampleSentences.json
-      │   └───sampleWords.json
+      │   ├───sampleSentences.json  # Sentence data: Sunrin Internet High School anthem (문장 데이터: 선린인터넷고 교가)
+      │   └───sampleWords.json      # Word data: Sunrin Internet High School clubs (단어 데이터: 선린인터넷고 전공동아리들)
       ├───hooks/
-      │   ├───useFetchWords.js
-      │   ├───useTimer.js
-      │   └───useTyping.js
+      │   ├───useTimer.js           # Custom hook for the game timer feature (게임 타이머 기능 커스텀 훅)
+      │   └───useTyping.js          # Handles typing logic and accuracy/speed calculation (타자 입력 처리 및 정확도/속도 계산 로직 커스텀 훅)
       ├───pages/
       │   ├───GamePage/
       │   │   ├───SentenceGamePage.jsx
@@ -118,14 +118,13 @@ TAPIE-typing-battle/
       │       ├───RankingPage.jsx
       │       └───RankingPage.module.css
       ├───services/
-      │   ├───rankingService.js
-      │   └───supabaseClient.js
+      │   ├───rankingService.js     # Logic for fetching and saving ranking data (랭킹 데이터 조회/저장 관련 서비스 로직)
+      │   └───supabaseClient.js     # Supabase client initialization and configuration (Supabase 클라이언트 초기화 및 설정)
       ├───styles/
       │   ├───globals.css
       │   └───variables.css
       └───utils/
-          ├───formatters.js
-          └───random.js
+          └───random.js             # Utility functions for selecting random items from arrays (배열에서 랜덤 항목을 가져오는 등 유틸리티 함수)
 ```
 
 ---

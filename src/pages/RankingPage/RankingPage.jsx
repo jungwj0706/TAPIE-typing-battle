@@ -31,7 +31,6 @@ const RankingPage = () => {
       console.error("Error fetching rankings:", error);
       setRankings([]);
     } else {
-      console.log("받아온 랭킹 데이터:", data); // 디버깅용 로그 추가
       setRankings(data || []);
     }
     setIsLoading(false);

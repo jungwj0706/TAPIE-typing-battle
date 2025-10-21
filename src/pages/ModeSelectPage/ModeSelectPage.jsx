@@ -11,9 +11,6 @@ const ModeSelectPage = () => {
   // NameInputPage에서 전달받은 playerName 가져오기
   const playerName = location.state?.playerName;
 
-  // 디버깅용 로그
-  console.log("ModeSelectPage에서 받은 playerName:", playerName);
-
   const handleWordBattleClick = () => {
     // playerName을 state로 전달
     navigate("/game/word", { state: { playerName } });

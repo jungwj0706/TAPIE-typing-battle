@@ -45,8 +45,6 @@ const WordGamePage = () => {
   }, []);
 
   const saveRank = async (wpm, time) => {
-    console.log("저장할 데이터:", { username, wpm, time }); // 디버깅용
-
     const { data, error } = await supabase.from("ranking").insert([
       {
         username: username || "익명",

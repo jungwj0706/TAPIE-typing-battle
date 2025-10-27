@@ -1,0 +1,28 @@
+name: Supabase Keep Alive Ping
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  
+  workflow_dispatch:
+
+jobs:
+  ping_supabase:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Perform Supabase Ping and Check Status
+        run: |
+          TABLE_NAME="ranking"
+          API_URL="${{ secrets.SUPABASE_URL }}/rest/v1/${TABLE_NAME}?limit=1&select=*"
+          
+          STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X GET "$API_URL" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+          
+          if [ "$STATUS_CODE" -ne 200 ] && [ "$STATUS_CODE" -ne 204 ]; then
+            echo "🚨 Supabase Ping Failed with Status Code: $STATUS_CODE"
+            exit 1 
+          else
+            echo "✅ Supabase Ping Successful (Status: $STATUS_CODE). Project is active."
+          fi
